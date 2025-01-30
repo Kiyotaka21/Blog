@@ -1,0 +1,70 @@
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  padding: 30px;
+  border: 1px solid #d4d6e0;
+  display: flex;
+  flex-direction: column;
+}
+
+.exit {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 21.79px;
+}
+
+.link:hover {
+  color: rgb(43, 43, 209);
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 27.24px;
+}
+
+.email {
+  color: #9ea1b1;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.07px;
+  margin-bottom: 46px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+  color: rgb(14, 14, 161);
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 19.07px;
+}
+
+.active {
+  color: rgb(43, 43, 209);
+}

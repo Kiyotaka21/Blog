@@ -1,0 +1,10 @@
+.main {    
+    min-width: 80vw;
+    padding: 30px;
+}
+
+.headling {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
