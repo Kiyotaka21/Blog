@@ -1,0 +1,34 @@
+.link {
+  text-decoration: none;
+}
+
+.card{
+  width: 225px;
+}
+
+.card {
+  max-width: 225px;
+  height: 500px;
+  border: 1px solid #000;
+  border-radius: 12px;
+  color: #000;
+}
+
+.bottom {
+  padding: 20px;
+}
+
+.head {
+  height: 310px;
+  border-radius: 12px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.status {
+  margin-bottom: 15px;
+}
