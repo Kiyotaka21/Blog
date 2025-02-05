@@ -10,6 +10,10 @@
   flex-direction: column;
 }
 
+.logo {
+  margin-right: 300px;
+}
+
 .exit {
   margin-top: auto;
   display: flex;
