@@ -2,31 +2,34 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./LoginPage.module.css";
 import { TextField } from "@mui/material";
-import { authRepository } from "../api/authRepository";
-import { AxiosError } from "axios";
 import { LoginPayload } from "../api/types";
 import { ROUTER_PATH } from "../../../shared/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { login, userActions } from "../../../shared/userSlice/userSlice";
+import { AppDispatch, RootState } from "../../../app/store/store";
+import { useEffect } from "react";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const {jwt, loginErrorMessage} = useSelector((s: RootState) => s.user);
+  useEffect(() => {
+    if (jwt) {
+      navigate("/");
+    }
+  }, [jwt, navigate])
+  
+
   const { handleSubmit, register } = useForm<LoginPayload>();
   const onSubmit: SubmitHandler<LoginPayload> = async (data) => {
+    dispatch(userActions.clearLoginError())
     const params = { email: data.email, password: data.password };
-    try {
-      const { data } = await authRepository.login({
-        params,
-      });
-      localStorage.setItem("jwt", data.token);
-      navigate("/");
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        console.error(e.message);
-      }
-    }
+    dispatch(login(params));
   };
   return (
     <div className={styles["login"]}>
       <h2 className={styles["header"]}>Login</h2>
+      {loginErrorMessage && <div className={styles['error']}>{loginErrorMessage}</div>}
       <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
         <TextField
           label="Email"
@@ -38,7 +41,7 @@ export const LoginPage = () => {
           variant="outlined"
           {...register("password", { required: true })}
         />
-        <button className={styles["button"]}>Create acc</button>
+        <button className={styles["button"]}>Log in</button>
       </form>
       <div>
         <p className={styles["text"]}>Don't have an account?</p>

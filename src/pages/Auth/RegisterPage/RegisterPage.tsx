@@ -1,34 +1,40 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "./RegisterPage.module.css";
 import { TextField } from "@mui/material";
-import { authRepository } from "../api/authRepository";
-import { AxiosError } from "axios";
 import { RegisterPayload } from "../api/types";
 import { ROUTER_PATH } from "../../../shared/routes";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store/store";
+import { useEffect } from "react";
+import { registration, userActions } from "../../../shared/userSlice/userSlice";
 
 export const RegisterPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { jwt, registerErrorMessage } = useSelector((s: RootState) => s.user);
+  useEffect(() => {
+    if (jwt) {
+      navigate("/");
+    }
+  }, [jwt, navigate]);
+
   const { handleSubmit, register } = useForm<RegisterPayload>();
   const onSubmit: SubmitHandler<RegisterPayload> = async (data) => {
+    dispatch(userActions.clearRegisterError());
     const params = {
       email: data.email,
       password: data.password,
       name: data.name,
     };
-    try {
-      const { data } = await authRepository.register({
-        params,
-      });
-      localStorage.setItem("jwt", data.token);
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        console.error(e.message);
-      }
-    }
+    dispatch(registration(params))
   };
   return (
     <div className={styles["login"]}>
       <h2 className={styles["header"]}>Registration</h2>
+      {registerErrorMessage && (
+        <div className={styles["error"]}>{registerErrorMessage}</div>
+      )}
       <form onSubmit={handleSubmit(onSubmit)} className={styles["form"]}>
         <TextField
           label="Email"

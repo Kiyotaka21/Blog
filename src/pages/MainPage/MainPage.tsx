@@ -1,12 +1,11 @@
-import { Select } from "./components/Select/Select";
-import { Headling } from "./components/Headling/Headling";
+import { Headling } from "../../shared/ui/Headling/Headling";
 import styles from "./MainPage.module.css";
 import { AnimeList } from "./components/AnimeList/AnimeList";
 import { useFetchAnime } from "./api/useFetchAnime";
 import { TextField } from "@mui/material";
 
 export const MainPage = () => {
-  const { anime, isLoading } = useFetchAnime();
+  const { filteredAnime, isLoading, updateFilter } = useFetchAnime();
 
   if (isLoading) {
     return "Данные загружаются";
@@ -16,14 +15,14 @@ export const MainPage = () => {
       <div className={styles["headling"]}>
         <Headling>Anime</Headling>
         <TextField
+          onChange={updateFilter}
           id="outlined-basic"
           label="Search anime"
           variant="outlined"
         />
-        <Select />
       </div>
       <div className={styles["page"]}>
-        <AnimeList anime={anime} />
+        <AnimeList anime={filteredAnime} />
       </div>
     </div>
   );

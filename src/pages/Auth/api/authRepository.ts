@@ -4,10 +4,10 @@ import { RegisterPayload, LoginPayload } from "./types";
 
 export class AuthRepository {
   login({ params, config }: RequestAxiosConfig<LoginPayload>) {
-    return api.post<{token: string}>("/auth", params, config);
+    return api.post<{ token: string }>("/auth", params, config);
   }
   register({ params, config }: RequestAxiosConfig<RegisterPayload>) {
-    return api.post<{token: string}>("/register", params, config);
+    return api.post<{ token: string }>("/register", params, config);
   }
 }
 

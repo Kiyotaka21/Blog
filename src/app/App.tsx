@@ -5,6 +5,9 @@ import { Layout } from "./Layout/Layout";
 import { LoginPage } from "../pages/Auth/LoginPage/LoginPage";
 import { RegisterPage } from "../pages/Auth/RegisterPage/RegisterPage";
 import { ROUTER_PATH } from "../shared/routes";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import { AnimePage } from "../pages/Anime/AnimePage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,10 @@ const router = createBrowserRouter([
         element: <FavoritesPage />,
       },
       {
+        path: ROUTER_PATH.ANIME,
+        element: <AnimePage />,
+      },
+      {
         path: ROUTER_PATH.LOGIN,
         element: <LoginPage />,
       },
@@ -33,8 +40,8 @@ const router = createBrowserRouter([
 
 export function App() {
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>   
   );
 }

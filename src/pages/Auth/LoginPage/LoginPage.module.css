@@ -42,3 +42,9 @@
 .text {
   color: rgb(35, 35, 123);
 }
+
+.error {
+	background: #FFC529;
+	color: white;
+	padding: 20px;
+}
