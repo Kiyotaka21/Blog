@@ -1,15 +1,17 @@
 import { Outlet } from "react-router-dom";
 import styles from "./Layout.module.css";
 import { SideBar } from "./Sidebar";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/store";
 
 export const Layout = () => {
-  const isAuthorized = localStorage.getItem("jwt");
+  const jwt = useSelector((s: RootState) => s.user.jwt);
   return (
     <div className={styles["layout"]}>
-      {isAuthorized ? (
+      {jwt ? (
         <SideBar />
       ) : (
-        <img className={styles["logo"]} src="/sasuke.webp" alt="sasuke" />
+        <img className={styles["img"]} src="/sasuke.webp" alt="sasuke" />
       )}
       <div>
         <Outlet />

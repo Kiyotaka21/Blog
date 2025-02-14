@@ -1,0 +1,13 @@
+.headling {
+    margin: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80vw;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-left: 60px;
+}

@@ -1,6 +1,7 @@
 export const ROUTER_PATH = {
-    MAIN: '/',
-    FAVORITES: '/favorites',
-    LOGIN: '/login',
-    REGISTER: '/register'
-}
+  MAIN: "/",
+  FAVORITES: "/favorites",
+  ANIME: 'anime/:id',
+  LOGIN: "/login",
+  REGISTER: "/register",
+} as const;

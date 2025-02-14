@@ -1,0 +1,9 @@
+.top {
+    display: flex;
+    gap: 40px;
+    margin: 50px;
+}
+
+.footer {
+    margin-left: 50px;
+}
