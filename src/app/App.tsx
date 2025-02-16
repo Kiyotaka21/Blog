@@ -1,37 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { MainPage } from "../pages/MainPage/MainPage";
+import { FavoritesPage } from "../pages/FavoritesPage/FavoritesPage";
+import { Layout } from "./Layout/Layout";
+import { LoginPage } from "../pages/Auth/LoginPage/LoginPage";
+import { RegisterPage } from "../pages/Auth/RegisterPage/RegisterPage";
+import { ROUTER_PATH } from "../shared/routes";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import { AnimePage } from "../pages/Anime/AnimePage";
 
-function App() {
-  const [count, setCount] = useState(0)
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: ROUTER_PATH.MAIN,
+        element: <MainPage />,
+      },
+      {
+        path: ROUTER_PATH.FAVORITES,
+        element: <FavoritesPage />,
+      },
+      {
+        path: ROUTER_PATH.ANIME,
+        element: <AnimePage />,
+      },
+      {
+        path: ROUTER_PATH.LOGIN,
+        element: <LoginPage />,
+      },
+      {
+        path: ROUTER_PATH.REGISTER,
+        element: <RegisterPage />,
+      },
+    ],
+  },
+]);
 
+export function App() {
   return (
-    <>
-
-      <div>
-        
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>   
+  );
 }
-
-export default App

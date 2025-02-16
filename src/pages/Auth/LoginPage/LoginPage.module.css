@@ -1,0 +1,50 @@
+.header {
+  color: rgb(35, 35, 123);
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 200px;
+}
+
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.button {
+  border-radius: 12px;
+  background-color: rgb(35, 35, 123);
+  color: #fff;
+  padding: 7px;
+  cursor: pointer;
+  width: 130px;
+}
+
+.button:hover {
+  background-color: rgb(15, 15, 59);
+}
+
+.link {
+  text-decoration: none;
+  color: rgb(35, 35, 123);
+}
+
+.link:hover {
+    color: rgb(15, 15, 59);
+  }
+
+.text {
+  color: rgb(35, 35, 123);
+}
+
+.error {
+	background: #FFC529;
+	color: white;
+	padding: 20px;
+}
