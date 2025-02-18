@@ -8,6 +8,8 @@ import { ROUTER_PATH } from "../shared/routes";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { AnimePage } from "../pages/Anime/AnimePage";
+import { RequireAuth } from "../pages/Auth/api/RequireAuth";
+import { AppProvider } from "./AppProvider";
 
 const router = createBrowserRouter([
   {
@@ -16,15 +18,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: ROUTER_PATH.MAIN,
-        element: <MainPage />,
+        element: (
+          <RequireAuth>
+            <MainPage />
+          </RequireAuth>
+        ),
       },
       {
         path: ROUTER_PATH.FAVORITES,
-        element: <FavoritesPage />,
+        element: (
+          <RequireAuth>
+            <FavoritesPage />
+          </RequireAuth>
+        ),
       },
       {
         path: ROUTER_PATH.ANIME,
-        element: <AnimePage />,
+        element: (
+          <RequireAuth>
+            <AnimePage />
+          </RequireAuth>
+        ),
       },
       {
         path: ROUTER_PATH.LOGIN,
@@ -40,8 +54,10 @@ const router = createBrowserRouter([
 
 export function App() {
   return (
-      <Provider store={store}>
+    <Provider store={store}>
+      <AppProvider>
         <RouterProvider router={router} />
-      </Provider>   
+      </AppProvider>
+    </Provider>
   );
 }

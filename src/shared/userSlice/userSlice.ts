@@ -2,11 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { authRepository } from "../../pages/Auth/api/authRepository";
 import { AxiosError } from "axios";
 import { userRepository } from "../api/userRepository";
+import { loadState } from "../storage";
 
 export interface Profile {
   id: number;
   email: string;
-  name: string
+  name: string;
+}
+
+export interface UserPersistentState {
+  jwt: string | null;
 }
 
 export interface UserState {
@@ -17,7 +22,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
-  jwt: null,
+  jwt: loadState<UserPersistentState>("userData")?.jwt ?? null,
 };
 
 export const login = createAsyncThunk(
@@ -52,19 +57,16 @@ export const registration = createAsyncThunk(
   }
 );
 
-export const getProfile = createAsyncThunk(
-  "user/getProfile",
-  async (jwt) => {      
-      const { data } = await userRepository.getUser({
-        config: {
-          headers: {
-            Authorization: `Bearer ${jwt}`
-          }
-        },
-      })
-      return data
-  }
-);
+export const getProfile = createAsyncThunk("user/getProfile", async (jwt) => {
+  const { data } = await userRepository.getUser({
+    config: {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    },
+  });
+  return data;
+});
 
 export const userSlice = createSlice({
   name: "user",
@@ -101,7 +103,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(getProfile.fulfilled, (state, action) => {
       state.profile = action.payload;
-    })
+    });
   },
 });
 

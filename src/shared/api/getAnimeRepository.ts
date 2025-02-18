@@ -4,7 +4,7 @@ import { RequestAxiosConfig } from "./types";
 
 export class GetAnimeRepository {
   getAnimeItem(requestCfg?: RequestAxiosConfig<{id: number}>) {
-    return api.get<Anime>(`/items/`, requestCfg?.config);
+    return api.get<Anime[]>(`/items`, requestCfg?.config);
   }
 }
 

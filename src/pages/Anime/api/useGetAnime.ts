@@ -8,11 +8,11 @@ export const useGetAnime = () => {
   const [item, setItem] = useState<Anime>();
   const getItem = async (id: number) => {
     const { data } = await getAnimeRepository.getAnimeItem({
-        params: {
-          id
-        }
-      });
-      return data;
+      params: {
+        id,
+      },
+    });
+    return data[id];
   };
   useEffect(() => {
     const fetchItem = async () => {

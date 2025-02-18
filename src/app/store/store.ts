@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userSliceReducer } from "../../shared/userSlice/userSlice";
-import { favoritesSliceReducer } from "../../pages/FavoritesPage/favoritesSlice/favoritesSlice";
+import { saveState } from "../../shared/storage";
+import { animeSliceReducer } from "../../shared/animeSlice/animeSlice";
 
 export const store = configureStore({
   reducer: {
     user: userSliceReducer,
-    favorites: favoritesSliceReducer,
+    anime: animeSliceReducer,
   },
+});
+
+store.subscribe(() => {
+  saveState({ jwt: store.getState().user.jwt }, "userData");
 });
 
 export type RootState = ReturnType<typeof store.getState>;
