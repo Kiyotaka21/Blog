@@ -1,11 +1,16 @@
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import styles from "./FavoritesCard.module.css";
-import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import styles from './Card.module.css'
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../app/store/store";
 import { animeActions } from "../../../../shared/animeSlice/animeSlice";
 
-export interface FavoritesCardProps {
+export interface CardProps {
   id: number;
   title: string;
   episodes: number;
@@ -14,19 +19,17 @@ export interface FavoritesCardProps {
   rating: number;
 }
 
-export function FavoritesCard({
+export function MediaCard({
   id,
   title,
   episodes,
   image,
   status,
   rating,
-}: FavoritesCardProps) {
+}: CardProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const remove = (e: React.MouseEvent) => {
-    e.preventDefault();
-    dispatch(animeActions.removeFavorite(id));
-  };
+  const toggleFavorites= () => dispatch(animeActions.toggleFavorites(id))
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <Link to={`anime/${id}`} className={styles["link"]}>
@@ -38,7 +41,7 @@ export function FavoritesCard({
       </Link>
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
-           {title}
+         {title}
         </Typography>
         <Typography variant="h6" sx={{ color: "text.secondary" }}>
           Episodes: {episodes}
@@ -51,7 +54,7 @@ export function FavoritesCard({
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={remove} size="small">Remove from favorites</Button>
+        <Button onClick={toggleFavorites} size="small">Add to favorites</Button>
       </CardActions>
     </Card>
   );
